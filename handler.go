@@ -2,7 +2,6 @@ package webapp
 
 import (
 	"bytes"
-	"encoding/json"
 	"io"
 	"log"
 	"net/http"
@@ -77,9 +76,9 @@ func (br *ResponseBuffer) Write(p []byte) (int, error) {
 
 // ResponseStats is a ResponseWriter that records statistics about a response.
 type ResponseStats struct {
-	w          http.ResponseWriter
-	statusCode int
-	size       int64
+	w    http.ResponseWriter
+	code int
+	size int64
 }
 
 // NewResponseStats returns a new ResponseStats that writes to w.
@@ -103,12 +102,12 @@ func (r *ResponseStats) Header() http.Header {
 
 func (r *ResponseStats) WriteHeader(statusCode int) {
 	r.w.WriteHeader(statusCode)
-	r.statusCode = statusCode
+	r.code = statusCode
 }
 
 func (r *ResponseStats) Write(p []byte) (n int, err error) {
-	if r.statusCode == 0 {
-		r.statusCode = http.StatusOK
+	if r.code == 0 {
+		r.code = http.StatusOK
 	}
 	n, err = r.w.Write(p)
 	r.size += int64(n)

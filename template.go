@@ -9,8 +9,8 @@ import (
 // AddFuncs adds the package's template functions.
 func AddFuncs(t *template.Template, router *mux.Router) {
 	t.Funcs(template.FuncMap{
-		"path": routePath(router),
-		"url":  routeURL(router),
+		"path": RoutePath(router),
+		"url":  RouteURL(router),
 	})
 }
 
