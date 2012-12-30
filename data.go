@@ -41,7 +41,7 @@ func Attachment(h http.Header, base, ext string) {
 
 // JSONResponse writes a JSON value to w, setting the Content-Type.
 func JSONResponse(w http.ResponseWriter, v interface{}) error {
-	w.Header().Set("Content-Type", JSONType)
+	w.Header().Set(HeaderContentType, JSONType)
 	return json.NewEncoder(w).Encode(v)
 }
 
