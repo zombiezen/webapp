@@ -2,19 +2,35 @@ package webapp
 
 import (
 	"bytes"
+	"errors"
 	"io"
 	"log"
 	"net/http"
 	"net/url"
 )
 
-// HTTP 404 error.
-type NotFound struct {
+// URLError records an error and the URL that caused it.
+type URLError struct {
 	URL *url.URL
+	Err error
 }
 
-func (nf *NotFound) Error() string {
-	return "not found: " + nf.URL.Path
+func (e *URLError) Error() string {
+	return e.URL.String() + ": " + e.Err.Error()
+}
+
+// NotFound is an HTTP 404 error.
+var NotFound = errors.New("not found")
+
+// IsNotFound reports whether an error is a NotFound error.
+func IsNotFound(e error) bool {
+	if e == NotFound {
+		return true
+	}
+	if e, ok := e.(*URLError); ok && e.Err == NotFound {
+		return true
+	}
+	return false
 }
 
 // A ResponseBuffer is a ResponseWriter that stores the data written to it in memory.  The zero value is an empty response.
