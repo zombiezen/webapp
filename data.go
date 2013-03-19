@@ -15,6 +15,7 @@ const (
 	HeaderContentEncoding    = "Content-Encoding"
 	HeaderContentLength      = "Content-Length"
 	HeaderContentType        = "Content-Type"
+	HeaderLocation           = "Location"
 )
 
 // Content types
