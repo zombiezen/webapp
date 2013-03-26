@@ -10,6 +10,7 @@ import (
 
 // Common HTTP headers
 const (
+	HeaderAccept             = "Accept"
 	HeaderAllow              = "Allow"
 	HeaderContentDisposition = "Content-Disposition"
 	HeaderContentEncoding    = "Content-Encoding"
