@@ -206,12 +206,12 @@ func TestMediaRange_match(t *testing.T) {
 		{
 			"text/html", map[string][]string{"level": {"1"}},
 			"text/html", map[string][]string{"level": {"1"}, "foo": {"bar"}},
-			mediaRangeMatch{nil, false, 1, 1, 0},
+			mediaRangeMatch{nil, true, 1, 1, 1},
 		},
 		{
-			"text/html", map[string][]string{"level": {"1"}, "foo": {"bar"}},
-			"text/html", map[string][]string{"level": {"1"}},
-			mediaRangeMatch{nil, false, 1, 1, 0},
+			"text/html", map[string][]string{"level": {"1"}, "charset": {"utf-8"}},
+			"text/html", map[string][]string{"level": {"1"}, "charset": {"utf-8"}, "foo": {"bar"}},
+			mediaRangeMatch{nil, true, 1, 1, 2},
 		},
 	}
 	for _, test := range tests {

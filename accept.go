@@ -188,14 +188,8 @@ func (mr *MediaRange) match(contentType string, params map[string][]string) medi
 		match.Subtype++
 	}
 
-	if len(mr.Params) == 0 {
-		match.Valid = true
-		return match
-	} else if len(params) != len(mr.Params) {
-		return match
-	}
-	for k, v1 := range params {
-		v2, ok := mr.Params[k]
+	for k, v1 := range mr.Params {
+		v2, ok := params[k]
 		if !ok {
 			return match
 		}
@@ -207,8 +201,8 @@ func (mr *MediaRange) match(contentType string, params map[string][]string) medi
 				return match
 			}
 		}
+		match.Params++
 	}
-	match.Params++
 	match.Valid = true
 	return match
 }
